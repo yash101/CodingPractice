@@ -27,12 +27,21 @@ fi
 
 mkdir binaries
 
-for o in ${BUILDDIR}/*.o
+for o in ${BUILDDIR}/*c.o
 do
 	if [ -f $o ]; then
 		echo "Building and linking executable, ${o} -> binaries/`basename ${o}`"
 		name=`basename ${o}`
 		gcc $o -o binaries/${name}
+	fi
+done
+
+for o in ${BUILDDIR}/*cpp.o ${BUILDDIR}/*.cxx.o ${BUILDDIR}/*.cc.o ${BUILDDIR}/*.c++.o
+do
+	if [ -f $o ]; then
+		echo "Building and linking executable, ${o} -> binaries/`basename ${o}`"
+		name=`basename ${o}`
+		g++ $o -o binaries/${name}
 	fi
 done
 
